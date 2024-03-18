@@ -1,3 +1,4 @@
 body{
-  background-color: pink;
+  background: rgb(255,198,237);
+background: linear-gradient(45deg, rgba(255,198,237,1) 0%, rgba(162,239,255,1) 50%, rgba(255,198,237,1) 100%)
 }

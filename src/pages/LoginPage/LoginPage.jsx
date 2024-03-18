@@ -55,7 +55,7 @@ export default function LoginPage({ handleSignUpOrLogin }) {
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as="h2" color="purple" textAlign="center">
-          <Image src="https://i.imgur.com/TM4eA5g.jpg" /> Login
+        <Image className="sign-logo" src="https://media.istockphoto.com/id/1397108953/vector/perfume-spray-bottle.jpg?s=612x612&w=0&k=20&c=srfmO8mZOo7x2lNdAWWIW8wXxOlwZZyvzwjCEQRpXjQ=" /> Log In
         </Header>
         <Form autoComplete="off" onSubmit={handleSubmit}>
           <Segment stacked>
