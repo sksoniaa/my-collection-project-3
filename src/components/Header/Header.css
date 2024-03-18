@@ -1,0 +1,18 @@
+
+
+.user-link{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.user-icon{
+  border: 1px solid rgb(135, 41, 163);
+  margin: 15px;
+}
+
+h3:last-child{
+  color: rgb(135, 41, 163);
+  font-style: italic;
+  font-size: 23px;
+}
