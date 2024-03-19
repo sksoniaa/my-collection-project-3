@@ -33,7 +33,7 @@ export default function AddPostForm({handleAddPost}) {
 
   return(
     <Segment style={{marginTop: "100px"}}>
-      <Form autocomplete="off" onSubmit={handleSubmit}>
+      <Form autoComplete="off" onSubmit={handleSubmit}>
         
       <Form.Input
           className='form-control'

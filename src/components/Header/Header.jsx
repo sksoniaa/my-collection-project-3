@@ -13,6 +13,7 @@ export default function PageHeader({ loggedUser, handleLogout }) {
         <Link to="" onClick={handleLogout}>
           Logout
         </Link>
+       
       </Header>
       <Header as="h2" floated="left">
         <Link to={`/${loggedUser.username}`} className="user-link">

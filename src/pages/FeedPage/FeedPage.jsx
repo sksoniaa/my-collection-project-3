@@ -8,7 +8,7 @@ import Header from "../../components/Header/Header";
 import AddPostForm from "../../components/AddPostForm/AddPostForm";
 
 
-export default function FeedPage({loggedUser, handleLogout}) {
+export default function FeedPage({loggedUser, handleLogout, addPostPage}) {
 
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -81,7 +81,7 @@ export default function FeedPage({loggedUser, handleLogout}) {
     <Grid centered>
     <Grid.Row>
       <Grid.Column>
-      <Header loggedUser={loggedUser} handleLogout={handleLogout}/>
+      <Header loggedUser={loggedUser} handleLogout={handleLogout} addPostPage={addPostPage}/>
       </Grid.Column>
     </Grid.Row>
     <Grid.Row>

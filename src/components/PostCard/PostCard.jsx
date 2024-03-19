@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 
 
-export default function PostCard({ post, isProfile, addLike, removeLike, loggedUser }) {
+export default function PostCard({ post, isProfile, loggedUser }) {
 
 
   return (

@@ -8,7 +8,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 // ANY component that is rendered by a route, should be stored in the 
 // pages folder. Every page is like an app component
 import userService from "./utils/userService";
-
+import AddPostForm from "./components/AddPostForm/AddPostForm";
 function App() {
   // the userService.getUser() when the page loads it goes into localstorage and looks for a jwt
   // token, decodes and sets it in state
@@ -42,6 +42,7 @@ function App() {
       </Routes>
     );
   }
+  console.log(user.username, "app - username");
   
   return (
     <Routes>
@@ -49,6 +50,7 @@ function App() {
       <Route path="/login" element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
       <Route path='/signup' element={<SignUpPage handleSignUpOrLogin={handleSignUpOrLogin} />} />
       <Route path="/:username" element={<ProfilePage loggedUser={user} handleLogout={logout}/>} />
+      {/* <Route path="/:username" element={<AddPostForm loggedUser={user} handleLogout={logout}/>} /> */}
     </Routes>
   );
 }
