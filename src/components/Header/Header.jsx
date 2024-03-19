@@ -5,7 +5,7 @@ import './Header.css'
 export default function PageHeader({ loggedUser, handleLogout }) {
     console.log(handleLogout)
   return (
-    <Segment clearing>
+    <Segment clearing   style={{width: "100%", position: "fixed", height: "100px", zIndex: "9999", boxShadow: "0 0 5px black"}}>
       <Header as="h2" floated="right" style={{marginTop: "20px"}}>
         <Link to="/">
           <Icon name="home"></Icon>

@@ -98,7 +98,7 @@ export default function SignUpPage({handleSignUpOrLogin}) {
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as="h2" color="purple" textAlign="center">
-          <Image className="sign-logo" src="https://media.istockphoto.com/id/1397108953/vector/perfume-spray-bottle.jpg?s=612x612&w=0&k=20&c=srfmO8mZOo7x2lNdAWWIW8wXxOlwZZyvzwjCEQRpXjQ=" /> Sign Up
+          <Image className="sign-logo" src="https://media.istockphoto.com/id/1397108953/vector/perfume-spray-bottle.jpg?s=612x612&w=0&k=20&c=srfmO8mZOo7x2lNdAWWIW8wXxOlwZZyvzwjCEQRpXjQ=" /> <p style={{color: "white"}}>Sign Up</p>
         </Header>
         <Form autoComplete="off" onSubmit={handleSubmit}>
           <Segment stacked>
@@ -137,7 +137,7 @@ export default function SignUpPage({handleSignUpOrLogin}) {
               label="bio"
               name="bio"
               value={state.bio}
-              placeholder="Tell us more about your dogs..."
+              placeholder="Tell us more about your sense of essence..."
               onChange={handleChange}
             />
             <Form.Field>

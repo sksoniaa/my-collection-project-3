@@ -41,6 +41,42 @@ export default function FeedPage({loggedUser, handleLogout}) {
     }
   }
 
+  async function getPosts() {
+    try {
+
+		// This is going to express to get the posts
+		// so this is the start of loading
+
+      const response = await fetch("/api/posts", {
+        method: "GET",
+        headers: {
+          // convention for sending jwts in a fetch request
+          Authorization: "Bearer " + tokenService.getToken(),
+          // We send the token, so the server knows who is making the
+          // request
+        },
+      });
+
+      const data = await response.json();
+      // AFTER THIS WE HAVE THE DATA BACK FROM SERVER
+      // CHECK THE DATA then update state!
+	  setLoading(false)
+      console.log(data);
+      setPosts(data.posts);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+
+
+  useEffect(() => {
+    // This useEffect is called when the page loads
+
+    // Don't forget to call the function
+    getPosts();
+  }, []);
+
   return(
     <Grid centered>
     <Grid.Row>
@@ -55,7 +91,7 @@ export default function FeedPage({loggedUser, handleLogout}) {
     </Grid.Row>
     <Grid.Row>
       <Grid.Column style={{ maxWidth: 450 }}>
-       {loading ? <h1>Loading...</h1> : <PostFeed  posts={posts} itemsPerRow={1} isProfile={false} addLike={addLike} removeLike={removeLike} loggedUser={loggedUser}/> } 
+       {loading ? <h1>Loading...</h1> : <PostFeed  posts={posts} itemsPerRow={1} isProfile={false} loggedUser={loggedUser}/> } 
       </Grid.Column>
     </Grid.Row>
   </Grid>

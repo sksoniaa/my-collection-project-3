@@ -31,6 +31,7 @@ function create(req, res) {
         // then save our post to mongodb (request and response to mongodb)
       // Using our model to create a document in the posts collection in mongodb
       const post = await PostModel.create({
+        title: req.body.title,
         caption: req.body.caption,
         user: req.user,
         photoUrl: data.Location, // < this is from aws
