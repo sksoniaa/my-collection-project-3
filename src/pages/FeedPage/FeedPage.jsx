@@ -13,6 +13,8 @@ export default function FeedPage({loggedUser, handleLogout, addPostPage}) {
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
 
+
+
   async function handleAddPost(postToSendToServer) {
     console.log(postToSendToServer, " formData from addPost form");
 

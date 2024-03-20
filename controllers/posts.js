@@ -4,7 +4,8 @@ const PostModel = require("../models/post");
 
 module.exports = {
   create,
-  index
+  index,
+  delete: deletePost,
 };
 
 const { v4: uuidv4 } = require('uuid');
@@ -15,6 +16,15 @@ const s3 = new S3();
 
 const BUCKET_NAME = process.env.S3_BUCKET
 
+
+async function deletePost(req,res) {
+  try{
+    const postDoc = await PostModel.deleteOne({'_id': req.params.id})
+    res.json({data: 'deleted the post'})
+  } catch(err) {
+    res.send(err)
+  }
+}
 
 function create(req, res) {
   console.log(req.file, req.body, req.user)

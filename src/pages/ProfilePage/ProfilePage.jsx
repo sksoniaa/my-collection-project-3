@@ -10,7 +10,7 @@ import AddPostForm from "../../components/AddPostForm/AddPostForm";
 
 
 
-export default function ProfilePage({loggedUser, handleLogout, addPostPage, handleAddPost}) {
+export default function ProfilePage({loggedUser, handleLogout, addPostPage, handleAddPost, deletePost}) {
 
   const [posts, setPosts] = useState([])
   const [profileUser, setProfileUser] = useState({})
@@ -20,6 +20,27 @@ export default function ProfilePage({loggedUser, handleLogout, addPostPage, hand
   const {username} = useParams() // comes from the params, defined in the app.jsx routes <Route path="/:username" .. >
   console.log(username, "username -- useParams"); 
   
+  async function deletePost(postId){
+    console.log(postId, "THIS IS THE LOG BEFORE THE TRY IN THE DELETERECIPE FUNCTION")
+    try {
+      const response = await fetch(`/api/posts/${postId}`, {
+        method: 'DELETE',
+        headers: {
+          // convention for sending jwts in a fetch request
+          Authorization: "Bearer " + tokenService.getToken(),
+          // We send the token, so the server knows who is making the
+          // request
+        } 
+      })
+
+      const data = await response.json()
+      console.log(data, ' response from delete recipe')
+      getProfileInfo(); // call getPosts to sync you data and update state
+      // so the like is removed from the array 
+    } catch(err){
+      console.log(err)
+    }
+  }
   
   async function handleAddPost(postToSendToServer) {
     console.log(postToSendToServer, " formData from addPost form");
@@ -119,7 +140,7 @@ export default function ProfilePage({loggedUser, handleLogout, addPostPage, hand
       </Grid.Row>
       <Grid.Row centered>
         <Grid.Column style={{ maxWidth: 750, margin: "15px"}}>
-         <PostFeed itemsPerRow={4} isProfile={true} posts={posts}  loggedUser={loggedUser}/> 
+         <PostFeed itemsPerRow={4} isProfile={true} posts={posts}  loggedUser={loggedUser} deletePost={deletePost}/> 
          {loggedUser.username === username && <AddPostForm handleAddPost={handleAddPost} />}
         
         </Grid.Column>

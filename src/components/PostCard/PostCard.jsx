@@ -1,11 +1,9 @@
-import { Card, Icon, Image } from "semantic-ui-react";
+import { Card, Icon, Image, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
+export default function PostCard({ post, isProfile, loggedUser, deletePost }) {
 
-
-export default function PostCard({ post, isProfile, loggedUser }) {
-
-
+  const clickHandler = () => deletePost(post._id)
   return (
 
     <Card>
@@ -32,6 +30,7 @@ export default function PostCard({ post, isProfile, loggedUser }) {
       <Card.Content>
         <Card.Description>{post.caption}</Card.Description>
       </Card.Content>
+      {loggedUser.username === post.user.username && <Button onClick={clickHandler}>DELETE</Button>}
     </Card>
   );
 }
