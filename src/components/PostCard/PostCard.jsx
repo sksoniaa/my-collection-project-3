@@ -1,9 +1,16 @@
 import { Card, Icon, Image, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function PostCard({ post, isProfile, loggedUser, deletePost }) {
 
+  const [showFullCaption, setShowFullCaption] = useState(false)
+
   const clickHandler = () => deletePost(post._id)
+
+  const toggleCaption = () => {
+    setShowFullCaption(!showFullCaption)
+  }
   return (
 
     <Card>
@@ -27,10 +34,21 @@ export default function PostCard({ post, isProfile, loggedUser, deletePost }) {
 
       <Card.Content style={{display: "flex", textAlign: "center", justifyContent: "center", fontSize: "15px", fontWeight: "600", color: "#cc8989"}}>{post.title}</Card.Content>
       <Image src={`${post.photoUrl}`} wrapped ui={false} />
+
       <Card.Content>
-        <Card.Description>{post.caption}</Card.Description>
+        {showFullCaption ? (
+          <>
+            <Card.Description>{post.caption}</Card.Description>
+            <Card.Description style={{color: "grey", fontSize: "12px", cursor: "pointer"}} onClick={toggleCaption}>Show less</Card.Description>
+          </>
+        ) : (
+          <>
+            <Card.Description>{post.caption.substring(0, 20)}...</Card.Description>
+            <Card.Description style={{color: "grey", fontSize: "12px", cursor: "pointer"}} onClick={toggleCaption}>Show more</Card.Description>
+          </>
+        )}
       </Card.Content>
-      {loggedUser.username === post.user.username && <Button onClick={clickHandler}>DELETE</Button>}
-    </Card>
+      {isProfile && loggedUser.username === post.user.username && <Button onClick={clickHandler}>DELETE</Button>}
+      </Card>
   );
 }
