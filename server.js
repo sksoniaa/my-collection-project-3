@@ -10,7 +10,11 @@ require("./config/database");
 
 const app = express();
 
+
+app.set('view engine', 'ejs')
+
 const likesRouter = require('./routes/api/likes')
+const commentsRouter = require('./routes/api/comments')
 const userRouter = require("./routes/api/users")
 const postRouter = require('./routes/api/posts')
 // add in when the app is ready to be deployed
@@ -30,8 +34,25 @@ app.use(require("./config/auth"));
 app.use("/api/users", userRouter);
 app.use('/api/posts', postRouter);
 app.use('/api', likesRouter);
+app.use('/api', commentsRouter);
 
 
+if(process.env.IS_PRODUCTION){
+  // This code will run in production
+    const manifest = require('./dist/manifest.json');
+    app.use(express.static(path.join(__dirname, "dist")));
+  
+    // "catch all" route when the code is in production
+    app.get('/*', function(req, res) {
+      res.render(path.join(__dirname, 'dist', 'index.ejs'), {manifest});
+    });
+  }
+  
+  // This is the catch all when the code is running locally
+  app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, './','index.html'));
+  });
+  
 // "catch all" route
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));

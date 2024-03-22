@@ -1,5 +1,5 @@
 import { Card, Icon, Image, Button } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 
 export default function PostCard({ post, isProfile, loggedUser, deletePost, removeLike, addLike }) {
@@ -10,11 +10,42 @@ export default function PostCard({ post, isProfile, loggedUser, deletePost, remo
 
   const [showFullCaption, setShowFullCaption] = useState(false)
 
+
+  const [text, setText] = useState('')
+
+
   const clickHandler = () => deletePost(post._id)
 
   const toggleCaption = () => {
     setShowFullCaption(!showFullCaption)
   }
+
+  // --------------------------------------------------------------------------------------------------------------
+  
+    async function handleSubmit(e){
+      e.preventDefault();
+  
+      try {
+        const response = await fetch(`/api/posts/${post._id}/comments`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ text }),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to add comment');
+        }
+  
+        // Reset form fields after successful submission
+        setText('');
+      } catch (error) {
+        console.error('Error adding comment:', error);
+      }
+    };
+
+    // ----------------------------------------------------------------------------------------------------------------
   return (
 
     <Card>
@@ -59,6 +90,54 @@ export default function PostCard({ post, isProfile, loggedUser, deletePost, remo
         <Icon name={"heart"} size="large" color={likeColor} onClick={clickHandlerLike}/>
         {post.likes.length} Likes
       </Card.Content>
+
+      <Card.Content>
+
+        {loggedUser && (
+          <form onSubmit={handleSubmit}>
+            <label>Comment:</label>
+            <textarea name="text" value={text} onChange={(e) => setText(e.target.value)}></textarea>
+            <input type="submit" value="Add Comment" />
+          </form>
+        )}
+
+        {post.comments.length ? (
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Date</th>
+                <th>Review</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {post.comments.map((c) => (
+                <tr key={c._id}>
+                  <td className="comment-user">
+                    <img alt="avatar" src={c.userAvatar} referrerPolicy="no-referrer" />
+                    {c.userName}
+                  </td>
+                  <td>{new Date(c.createdAt).toLocaleDateString()}</td>
+                  <td>{c.text}</td>
+                  <td>
+                    {user && user._id === c.user && (
+                      <form action={`/comments/${c._id}?_method=DELETE`} method="POST">
+                        <button type="submit">DELETE</button>
+                      </form>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <h5>No Reviews Yet</h5>
+        )}
+
+
+      </Card.Content>
+
 
       </Card>
   );

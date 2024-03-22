@@ -7,6 +7,14 @@ const likesSchema = mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId },
 });
 
+const commentsSchema = mongoose.Schema({
+  username: String,
+  userId: {type: mongoose.Schema.Types.ObjectId},
+  text: String,
+  userName: String,
+  userAvatar: String,
+
+})
 
 
 // One a user has many posts 
@@ -20,6 +28,7 @@ const postSchema = new mongoose.Schema({
   // to make a likes model
   //comments: [commentSchema],
   likes: [likesSchema],
+  comments: [commentsSchema]
 });
 
 module.exports = mongoose.model("Post", postSchema);
