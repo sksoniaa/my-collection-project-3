@@ -71,6 +71,50 @@ export default function FeedPage({loggedUser, handleLogout, addPostPage}) {
   }
 
 
+  async function addLike(postId){ // postId comes from the card component
+    // where we call this function
+    try {
+      const response = await fetch(`/api/posts/${postId}/likes`, {
+        method: 'POST',
+        headers: {
+          // convention for sending jwts in a fetch request
+          Authorization: "Bearer " + tokenService.getToken(),
+          // We send the token, so the server knows who is making the
+          // request
+        }
+      })
+
+      const data = await response.json();
+      console.log(data, ' response from addLike')
+      getPosts(); // Refetch the posts, which updates the state, 
+      // the post will now have the user in inside of the 
+      // post.likes array
+    } catch(err){
+      console.log(err)
+    }
+  }
+
+  async function removeLike(likeId){
+    try {
+      const response = await fetch(`/api/likes/${likeId}`, {
+        method: 'DELETE',
+        headers: {
+          // convention for sending jwts in a fetch request
+          Authorization: "Bearer " + tokenService.getToken(),
+          // We send the token, so the server knows who is making the
+          // request
+        } 
+      })
+
+      const data = await response.json()
+      console.log(data, ' response from delete like')
+      getPosts(); // call getPosts to sync you data and update state
+      // so the like is removed from the array 
+    } catch(err){
+      console.log(err)
+    }
+  }
+
 
   useEffect(() => {
     // This useEffect is called when the page loads
@@ -93,7 +137,7 @@ export default function FeedPage({loggedUser, handleLogout, addPostPage}) {
     </Grid.Row>
     <Grid.Row>
       <Grid.Column style={{ maxWidth: 450 }}>
-       {loading ? <h1>Loading...</h1> : <PostFeed  posts={posts} itemsPerRow={1} isProfile={false} loggedUser={loggedUser}/> } 
+       {loading ? <h1>Loading...</h1> : <PostFeed  posts={posts} itemsPerRow={1} isProfile={false} loggedUser={loggedUser} addLike={addLike} removeLike={removeLike}/> } 
       </Grid.Column>
     </Grid.Row>
   </Grid>

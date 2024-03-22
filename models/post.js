@@ -8,6 +8,7 @@ const likesSchema = mongoose.Schema({
 });
 
 
+
 // One a user has many posts 
 // A post belongs to a User
 const postSchema = new mongoose.Schema({
@@ -17,6 +18,7 @@ const postSchema = new mongoose.Schema({
   caption: String,
   // One Post has many likes, we are using embedding, because the likes will always be tied to the post, so no reason
   // to make a likes model
+  //comments: [commentSchema],
   likes: [likesSchema],
 });
 

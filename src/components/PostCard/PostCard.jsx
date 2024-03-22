@@ -2,7 +2,11 @@ import { Card, Icon, Image, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-export default function PostCard({ post, isProfile, loggedUser, deletePost }) {
+export default function PostCard({ post, isProfile, loggedUser, deletePost, removeLike, addLike }) {
+
+  const likedIndex = post.likes.findIndex(like => like.username === loggedUser.username);
+  const likeColor = likedIndex > -1 ? 'red' : 'grey';
+  const clickHandlerLike = likedIndex > -1 ? () => removeLike(post.likes[likedIndex]._id) : () => addLike(post._id)
 
   const [showFullCaption, setShowFullCaption] = useState(false)
 
@@ -48,7 +52,14 @@ export default function PostCard({ post, isProfile, loggedUser, deletePost }) {
           </>
         )}
       </Card.Content>
+
       {isProfile && loggedUser.username === post.user.username && <Button onClick={clickHandler}>DELETE</Button>}
+
+      <Card.Content extra textAlign={"right"}>
+        <Icon name={"heart"} size="large" color={likeColor} onClick={clickHandlerLike}/>
+        {post.likes.length} Likes
+      </Card.Content>
+
       </Card>
   );
 }
