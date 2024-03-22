@@ -1,6 +1,8 @@
 import { Card, Icon, Image, Button } from "semantic-ui-react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import tokenService from '../../utils/tokenService';
+
 
 export default function PostCard({ post, isProfile, loggedUser, deletePost, removeLike, addLike }) {
 
@@ -21,7 +23,7 @@ export default function PostCard({ post, isProfile, loggedUser, deletePost, remo
   }
 
   // --------------------------------------------------------------------------------------------------------------
-  
+
     async function handleSubmit(e){
       e.preventDefault();
   
@@ -30,6 +32,7 @@ export default function PostCard({ post, isProfile, loggedUser, deletePost, remo
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: "Bearer " + tokenService.getToken(),
           },
           body: JSON.stringify({ text }),
         });
@@ -101,7 +104,7 @@ export default function PostCard({ post, isProfile, loggedUser, deletePost, remo
           </form>
         )}
 
-        {post.comments.length ? (
+        {/* {post.comments.length ? (
           <table>
             <thead>
               <tr>
@@ -133,7 +136,7 @@ export default function PostCard({ post, isProfile, loggedUser, deletePost, remo
           </table>
         ) : (
           <h5>No Reviews Yet</h5>
-        )}
+        )} */}
 
 
       </Card.Content>
