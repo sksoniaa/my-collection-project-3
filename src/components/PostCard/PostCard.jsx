@@ -11,16 +11,15 @@ export default function PostCard({ post, isProfile, loggedUser, deletePost, remo
   const clickHandlerLike = likedIndex > -1 ? () => removeLike(post.likes[likedIndex]._id) : () => addLike(post._id)
 
   const [showFullCaption, setShowFullCaption] = useState(false)
-
-
   const [text, setText] = useState('')
-
+  const [comments, setComments] = useState([]);
 
   const clickHandler = () => deletePost(post._id)
 
   const toggleCaption = () => {
     setShowFullCaption(!showFullCaption)
   }
+
 
   // --------------------------------------------------------------------------------------------------------------
 
@@ -95,52 +94,23 @@ export default function PostCard({ post, isProfile, loggedUser, deletePost, remo
       </Card.Content>
 
       <Card.Content>
+        {post.comments.map(comment => (
+          <div key={comment._id}>
+            <p>{comment.text}</p>
+            <p>By: {comment.username}</p>
+          </div>
+        ))}
+      </Card.Content>
 
-        {loggedUser && (
+      {loggedUser && (
+        <Card.Content>
           <form onSubmit={handleSubmit}>
             <label>Comment:</label>
             <textarea name="text" value={text} onChange={(e) => setText(e.target.value)}></textarea>
             <input type="submit" value="Add Comment" />
           </form>
-        )}
-
-        {/* {post.comments.length ? (
-          <table>
-            <thead>
-              <tr>
-                <th>User</th>
-                <th>Date</th>
-                <th>Review</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {post.comments.map((c) => (
-                <tr key={c._id}>
-                  <td className="comment-user">
-                    <img alt="avatar" src={c.userAvatar} referrerPolicy="no-referrer" />
-                    {c.userName}
-                  </td>
-                  <td>{new Date(c.createdAt).toLocaleDateString()}</td>
-                  <td>{c.text}</td>
-                  <td>
-                    {user && user._id === c.user && (
-                      <form action={`/comments/${c._id}?_method=DELETE`} method="POST">
-                        <button type="submit">DELETE</button>
-                      </form>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <h5>No Reviews Yet</h5>
-        )} */}
-
-
-      </Card.Content>
-
+        </Card.Content>
+      )}
 
       </Card>
   );
