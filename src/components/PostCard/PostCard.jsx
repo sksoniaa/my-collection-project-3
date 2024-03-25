@@ -27,26 +27,8 @@ export default function PostCard({ post, isProfile, loggedUser, deletePost, remo
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch(`/api/posts/${post._id}/comments`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: "Bearer " + tokenService.getToken(),
-        },
-        body: JSON.stringify({ text }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to add comment');
-      }
-
-      // Reset form fields after successful submission
-      setText("reload the page")
-    } catch (error) {
-      console.error('Error adding comment:', error);
-    }
+    handleSubmitComment(text, post._id)
+    setText("")
   };
 
   return (

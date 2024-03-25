@@ -14,9 +14,9 @@ export default function FeedPage({loggedUser, handleLogout, addPostPage}) {
   const [loading, setLoading] = useState(true)
 
 
-  async function handleSubmitComment() {
+  async function handleSubmitComment(text, id) {
     try {
-      const response = await fetch(`/api/posts/${post._id}/comments`, {
+      const response = await fetch(`/api/posts/${id}/comments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export default function FeedPage({loggedUser, handleLogout, addPostPage}) {
       }
 
       // Reset form fields after successful submission
-      setText("reload the page")
+      getPosts()
     } catch (error) {
       console.error('Error adding comment:', error);
     }
