@@ -39,7 +39,7 @@ export default function AddPostForm({handleAddPost}) {
           className='form-control'
           name="title"
           value={state.title}
-          placeholder="Did you get a new perfume? 💌"
+          placeholder="Enter your perfume name  💌"
           onChange={handleChange}
           required
         />
@@ -47,7 +47,7 @@ export default function AddPostForm({handleAddPost}) {
           className='form-control'
           name="caption"
           value={state.caption}
-          placeholder="How do you like it?"
+          placeholder="Describe it!"
           onChange={handleChange}
         />
         <Form.Input
@@ -58,7 +58,7 @@ export default function AddPostForm({handleAddPost}) {
           onChange={handleFileInput}
           required
         />
-        <Button type='submit' className='button'>
+        <Button type='submit' className='button' style={{backgroundColor: "#4183C4", color: "#D4EAFF", fontSize: "12px"}}>
           ADD PERFUME
         </Button>
       </Form>

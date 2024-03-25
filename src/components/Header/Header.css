@@ -6,12 +6,12 @@
 }
 
 .user-icon{
-  border: 1px solid rgb(135, 41, 163);
-  margin: 15px;
+  border: 1px solid rgb(255, 255, 255);
+  margin: 14px;
+  border: .15vw solid #8f7253 
 }
 
+
 h3:last-child{
-  color: rgb(135, 41, 163);
   font-style: italic;
-  font-size: 23px;
 }

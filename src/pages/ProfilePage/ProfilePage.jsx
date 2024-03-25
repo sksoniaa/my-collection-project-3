@@ -182,7 +182,7 @@ export default function ProfilePage({loggedUser, handleLogout, addPostPage, hand
       </Grid.Row>
       <Grid.Row centered>
         <Grid.Column style={{ maxWidth: 750, margin: "15px"}}>
-         <PostFeed itemsPerRow={4} isProfile={true} posts={posts}  loggedUser={loggedUser} deletePost={deletePost} addLike={addLike} removeLike={removeLike}/> 
+         <PostFeed itemsPerRow={3} isProfile={true} posts={posts}  loggedUser={loggedUser} deletePost={deletePost} addLike={addLike} removeLike={removeLike}/> 
          {loggedUser.username === username && <AddPostForm handleAddPost={handleAddPost} />}
         
         </Grid.Column>

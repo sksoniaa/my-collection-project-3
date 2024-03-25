@@ -9,7 +9,7 @@ export default function ProfilePostDisplay({isProfile, posts, itemsPerRow}){
     })
 
     return (
-      <Card.Group itemsPerRow={4}>
+      <Card.Group itemsPerRow={itemsPerRow}>
        {postCards}
        </Card.Group>
     
