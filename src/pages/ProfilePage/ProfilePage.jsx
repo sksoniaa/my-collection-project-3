@@ -19,7 +19,31 @@ export default function ProfilePage({loggedUser, handleLogout, addPostPage, hand
 
   const {username} = useParams() // comes from the params, defined in the app.jsx routes <Route path="/:username" .. >
   console.log(username, "username -- useParams"); 
-  
+
+
+
+  async function handleSubmitComment() {
+    try {
+      const response = await fetch(`/api/posts/${post._id}/comments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: "Bearer " + tokenService.getToken(),
+        },
+        body: JSON.stringify({ text }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add comment');
+      }
+
+      // Reset form fields after successful submission
+      setText("reload the page")
+    } catch (error) {
+      console.error('Error adding comment:', error);
+    }
+  }
+
   async function deletePost(postId){
     console.log(postId, "THIS IS THE LOG BEFORE THE TRY IN THE DELETERECIPE FUNCTION")
     try {
@@ -182,7 +206,7 @@ export default function ProfilePage({loggedUser, handleLogout, addPostPage, hand
       </Grid.Row>
       <Grid.Row centered>
         <Grid.Column style={{ maxWidth: 750, margin: "15px"}}>
-         <PostFeed itemsPerRow={3} isProfile={true} posts={posts}  loggedUser={loggedUser} deletePost={deletePost} addLike={addLike} removeLike={removeLike}/> 
+         <PostFeed handleSubmitComment={handleSubmitComment} itemsPerRow={3} isProfile={true} posts={posts}  loggedUser={loggedUser} deletePost={deletePost} addLike={addLike} removeLike={removeLike}/> 
          {loggedUser.username === username && <AddPostForm handleAddPost={handleAddPost} />}
         
         </Grid.Column>

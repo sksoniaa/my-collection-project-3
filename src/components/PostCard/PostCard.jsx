@@ -5,7 +5,7 @@ import CommentsComponent from "../CommentsComponent/CommentsComponent"
 import tokenService from "../../utils/tokenService";
 import "./PostCard.css"
 
-export default function PostCard({ post, isProfile, loggedUser, deletePost, removeLike, addLike }) {
+export default function PostCard({ post, isProfile, loggedUser, deletePost, removeLike, addLike, handleSubmitComment }) {
 
   const likedIndex = post.likes.findIndex(like => like.username === loggedUser.username);
   const likeColor = likedIndex > -1 ? 'red' : 'grey';
@@ -108,18 +108,19 @@ export default function PostCard({ post, isProfile, loggedUser, deletePost, remo
         {post.likes.length} Likes
       </Card.Content>
 
-
       {showComments && loggedUser && (
-      <Card.Content>
-        <p style={{fontWeight: "bold"}}>Comments:</p>
-        {post.comments.map(comment => (
-          <div key={comment._id} style={{display: "flex", gap: "10px"}}>
-            <p style={{color: "grey", fontSize:"12px"}}>{comment.username} : <p style={{color: "black"}}>{comment.text}</p></p>
-          </div>
-        ))}
-        <p onClick={toggleComments} style={{textAlign: "center", color: "#4183C4"}}>Hide comments</p>
-        </Card.Content>
-      )}
+    <Card.Content>
+        <>
+            <p style={{fontWeight: "bold"}}>Comments:</p>
+            {post.comments.map(comment => (
+                <div key={comment._id} style={{display: "flex", gap: "10px"}}>
+                    <p style={{color: "grey", fontSize:"12px"}}>{comment.username} : <span style={{color: "black"}}>{comment.text}</span></p>
+                </div>
+            ))}
+            <p onClick={toggleComments} style={{textAlign: "center", color: "#4183C4"}}>Hide comments</p>
+        </>
+    </Card.Content>
+)}
 
           {!showComments && (
             <CardContent>
@@ -127,7 +128,7 @@ export default function PostCard({ post, isProfile, loggedUser, deletePost, remo
             </CardContent>
           )}
 
-          <CommentsComponent />
+          <CommentsComponent handleSubmitComment={handleSubmitComment}/>
           {loggedUser && (
           <form onSubmit={handleSubmit} style={{display:"flex", alignItems: "center", justifyContent: "space-between", flexDirection: "column", gap: "10px"}}>
             <label style={{

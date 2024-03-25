@@ -1,42 +1,12 @@
+## Your Collection Project (MERN)
 
-## Setup 
+Hi everyone!
+This project is called "Your Collection". It's a social media app, where people post their favourite perfumes/colognes and see each other's collections. You can put comments and likes under each post, add new posts and delete your own posts.
 
-1. Clone the repo `git clone https://github.com/Jimbojones1/Pupstagram-starter-with-login-signup.git` in your code folder
-2. Rename the folder to your Project, you can use the `mv` command like `mv Pupstagram-starter-with-login-signup yourprojectname`
-3. Delete the `.git` file. When you are in the root of the folder, you can press `ls -a` and you should see a `.git` file, then go ahead and run `rm -rf .git`
+Click on the link --->  https://my-collection-project-3.onrender.com
 
+![Log in](<src/assets/Screenshot 2024-03-25 at 12.29.49.png>)
 
-#### Setup your git repo
+![FeedPage](<src/assets/Screenshot 2024-03-25 at 12.30.52.png>)
 
-1. go to github and create your github and create a repo (Without a readme or liscense you can add that later!)
-2.  Then follow the directions on github that says ```…or create a new repository on the command line```
-
-it should look like this
-
-```
-git init
-git add .
-git commit -m "first commit"
-git remote add origin git@git.generalassemb.ly:SEI-CC/test.git // this will be whatever your address will be
-git push -u origin main
-```
-
-#### Setup the App
-
-```npm install```
-
-*DOTENV*
-
-`touch .env`
-
-add your variables (Don't forget to update your database name, as shown in the string below
-
-```
-DATABASE_URL=mongodb+srv://jimbojones:W45BfQSBKq9vRKz2@cluster0.ktckmmi.mongodb.net/<your database name>?retryWrites=true&w=majority
-SECRET=SEIrocks!
-aws_access_key_id=yourkeygoeshere
-aws_secret_access_key=yourkeygoeshere
-S3_BUCKET=yourbucknamegoeshere
-```
-
-The app is configured, to use those respective key names for the database, jwt secret and aws bucket, of course you'll have your own values
+![Profile Page](<src/assets/Screenshot 2024-03-25 at 12.31.59.png>)

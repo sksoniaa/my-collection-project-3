@@ -14,6 +14,27 @@ export default function FeedPage({loggedUser, handleLogout, addPostPage}) {
   const [loading, setLoading] = useState(true)
 
 
+  async function handleSubmitComment() {
+    try {
+      const response = await fetch(`/api/posts/${post._id}/comments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: "Bearer " + tokenService.getToken(),
+        },
+        body: JSON.stringify({ text }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add comment');
+      }
+
+      // Reset form fields after successful submission
+      setText("reload the page")
+    } catch (error) {
+      console.error('Error adding comment:', error);
+    }
+  }
 
   async function handleAddPost(postToSendToServer) {
     console.log(postToSendToServer, " formData from addPost form");
@@ -137,7 +158,7 @@ export default function FeedPage({loggedUser, handleLogout, addPostPage}) {
     </Grid.Row>
     <Grid.Row>
       <Grid.Column style={{ maxWidth: 450 }}>
-       {loading ? <h1>Loading...</h1> : <PostFeed  posts={posts} itemsPerRow={1} isProfile={false} loggedUser={loggedUser} addLike={addLike} removeLike={removeLike}/> } 
+       {loading ? <h1>Loading...</h1> : <PostFeed handleSubmitComment={handleSubmitComment} posts={posts} itemsPerRow={1} isProfile={false} loggedUser={loggedUser} addLike={addLike} removeLike={removeLike}/> } 
       </Grid.Column>
     </Grid.Row>
   </Grid>
